@@ -1,6 +1,9 @@
 <?php 
-$db=new mysqli('localhost', 'root', '1234', 'test');
+//DB connect
+$conn = new mysqli('localhost', 'root', '1234');
 
-if($db->connect_error)
-	die("Couldn't connect: " . mysql_error());
+//connection check
+if($conn -> connect_error)
+	die('DB connection failed' . $conn -> connect_error);
+echo "<script>console.log('Connect successfully');</script>";
 ?>
