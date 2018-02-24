@@ -11,9 +11,19 @@ include("header.php");
 		</div> 
 
 		<div class="form-group"> 
-			<label for="writer">글쓴이</label> 
+			<label for="writer">작성자</label> 
 			<input type="text" name="writer" id="writer" class="form-control" required>
-		</div> 
+		</div>
+
+		<div class="form-group"> 
+			<label for="email">email</label> 
+			<input type="email" name="email" id="email" class="form-control" required>
+		</div>
+
+		<div class="form-group"> 
+			<label for="category">카테고리</label> 
+			<input type="text" name="category" id="category" class="form-control" required>
+		</div>
 
 		<div class="form-group"> 
 			<label for="content">본문</label> 

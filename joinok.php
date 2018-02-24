@@ -13,16 +13,11 @@ if( isset($_POST['userpw']) )
 	$userpw = $_POST['userpw'];
 
 //email overlap
-if($usermail)
-{
-	$sql = "SELECT email FROM users WHERE email = '${usermail}'";
-	$result = mysqli_query($sql);
-	$row = mysqli_fetch_row($result);
-	if($row)
-	{
-		echo "중복되는 이메일입니다ㅣ";
-	}
-}
+$sql = "SELECT * FROM user WHERE email LIKE '$usermail'";
+$result = mysqli_query($conn, $sql);
+
+if($result)
+	echo "중복되는 이메일입니다";
 
 //add data
 if( $username && $usermail && $userpw ) 
@@ -38,4 +33,5 @@ if($conn -> query($sql) == true)
 else
 	echo "Error " . " : " . $conn -> error;
 
-// header('Location: /');
+//back to index
+header('Location: /');
