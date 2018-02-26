@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include("connect.php");
 include("header.php");
 ?>
@@ -12,12 +13,16 @@ include("header.php");
 
 		<div class="form-group"> 
 			<label for="writer">작성자</label> 
-			<input type="text" name="writer" id="writer" class="form-control" required>
+			<?php 
+				echo "<input type='text' class='form-control' value='" . $_SESSION['loginname'] ."' disabled>";
+			?>
 		</div>
 
 		<div class="form-group"> 
 			<label for="email">email</label> 
-			<input type="email" name="email" id="email" class="form-control" required>
+			<?php 
+				echo "<input type='text' class='form-control' value='" . $_SESSION['loginid'] ."' disabled>";
+			?>
 		</div>
 
 		<div class="form-group"> 
@@ -38,9 +43,3 @@ include("header.php");
 		<button type="submit" class="btn btn-primary">등록</button>
 	</form> 
 </article>
-
-<script>
-	var btn = document.getElementById('btn');
-	btn.innerHTML="<span class='glyphicon glyphicon-home'></span> 홈";
-	btn.setAttribute("href", "index.php");
-</script>

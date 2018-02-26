@@ -4,11 +4,11 @@
 }
 
 .main {
-	width: 80%;
+	width: 79%;
+	float: left;
 }
 
 .well {
 	width: 20%;
-	margin: 0;
 	float: right;
 }

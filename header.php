@@ -12,7 +12,4 @@
 	<div class="wrap">
 		<div class="jumbotron text-center">
 			<h1>게시판</h1>
-			<a href="write.php" id="btn" class="btn btn-primary">
-				<span class="glyphicon glyphicon-pencil"></span> 글쓰기
-			</a>
 		</div>

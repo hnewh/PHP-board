@@ -23,11 +23,6 @@
 </article>
 
 <script>
-//change button
-var btn = document.getElementById('btn');
-btn.innerHTML="<span class='glyphicon glyphicon-home'></span> 홈";
-btn.setAttribute("href", "index.php");
-
 function check() 
 {
   var username = $("#username").val();

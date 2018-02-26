@@ -13,11 +13,12 @@ if( isset($_POST['userpw']) )
 	$userpw = $_POST['userpw'];
 
 //email overlap
-$sql = "SELECT * FROM user WHERE email LIKE '$usermail'";
-$result = mysqli_query($conn, $sql);
-
-if($result)
-	echo "중복되는 이메일입니다";
+$sql = "SELECT * FROM test.users WHERE email = '$usermail'";
+if($conn -> query($sql) == true)
+{
+	echo "<script>alert('중복되는 이메일입니다');";
+	echo "location.href = 'join.php'</script>";
+}
 
 //add data
 if( $username && $usermail && $userpw ) 
@@ -29,9 +30,9 @@ if( $username && $usermail && $userpw )
 }
 
 if($conn -> query($sql) == true)
+{
 	echo "<script>console.log('New record created');</script>";
+	header('Location: /');
+}
 else
-	echo "Error " . " : " . $conn -> error;
-
-//back to index
-header('Location: /');
+	echo "Failed to create new record";
