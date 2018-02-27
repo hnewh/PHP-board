@@ -4,12 +4,13 @@ include("connect.php");
 
 $userid = "";
 $userpw = "";
-if( isset($_POST['id']) )
+if(isset($_POST['id']))
 	$userid = $_POST['id'];
-if( isset($_POST['password']) )
+if(isset($_POST['password']))
 	$userpw = $_POST['password'];
 
-if( $userid && $userpw )
+//login check
+if($userid && $userpw)
 {
 	$sql = "SELECT * FROM users WHERE email = '$userid' AND password = '$userpw'";
 	$result = mysqli_query($conn, $sql);
@@ -18,6 +19,7 @@ if( $userid && $userpw )
 	{
 		$_SESSION['loginid'] = $row['email'];
 		$_SESSION['loginname'] = $row['name'];
+		$_SESSION['loginidx'] = $row['idx'];
 		header('Location: /');
 	}
 	else

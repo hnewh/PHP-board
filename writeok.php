@@ -1,45 +1,56 @@
-<?php 
+<?php
+session_start();
 include('connect.php');
 
-$name = "";
-$email = "";
 $title = "";
+$category = "";
 $content = "";
-$file = "";
 
-if(isset($_POST['name']))
-	$title = $_POST['name'];
-if(isset($_POST['email']))
-	$email = $_POST['email'];
 if(isset($_POST['title']))
 	$title = $_POST['title'];
+if(isset($_POST['category']))
+	$category = $_POST['category'];
 if(isset($_POST['content']))
-	$title = $_POST['content'];
+{
+	$content = $_POST['content'];
+	$content = strip_tags($content);
+}
 
+//file upload
+$file = "";
 $dir = "./uploads/";
-if(is_uploaded_file($_FILES['upfile']['tmp_name']))
+if($_FLIE['img'])
 {
-	$upfile = basename($_FILES['upfile']['name']);
-	$target = $dir . $upfile;
+	$file_target = $dir . basename($_FILES['img']['name']);
+	$fileType = strtolower(pathinfo($file_target, PATHINFO_EXTENSION));
 
-	if(move_uploaded_file($_FILES['upfile']['tmp_name'], $target))
-		$file = $upfile;
+	//img check
+	if($fileType != "jpg" && $fileType != "png" && $fileType != "jpeg" && $fileType != "gif")
+	{
+		echo "<script>alert('지원하지 않는 파일 형식입니다');";
+		echo "location.href = 'write.php'</script>";
+	}
+	//move directory
+	if(!move_uploaded_file($_FILES['img']['tmp_name'], $file_target))
+	{
+		echo "<script>alert('Error');";
+		echo "location.href = 'write.php'</script>";
+	}
+	$file = $_FILES['img']['name'];
 }
 
-$sql = "";
-if($title && $content)
+//add data
+if($title && $category && $content)
 {
-	$sql .= "INSERT INTO test.news (name, email, title, content, file, date, hit) VALUES";
-	$sql .= "('" . $name . "', '";
-	$sql .= $email . "', '";
-	$sql .= $title . "', '";
-	$sql .= $content . "', '";
-	$sql .= $file . "', '";
-	$sql .= "date = now(), ";
-	$sql .= "hit = 0";
+	$sql = "INSERT INTO test.news (name, email, title, content, file, hit, status, user_idx, category_idx) VALUES ";
+	$sql .= "('$loginname', '$loginid', '$title', '$content', '$file', '0', '1', '$loginidx', '$category')";
 }
-echo $sql;
-// if($conn -> query($sql) == true)
-// 	echo "<script>console.log('New Record created')</script>";
 
+if($conn -> query($sql) == true)
+{
+	echo "<script>console.log('New record created');</script>";
+	header('Location: /');
+}
+else
+	echo "Failed to create new record" . $sql;
 ?>

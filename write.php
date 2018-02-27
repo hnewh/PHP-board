@@ -5,7 +5,7 @@ include("header.php");
 ?>
 
 <article>
-	<form action="writeok.php" method="POST">
+	<form action="writeok.php" method="POST" enctype="multipart/form-data">
 		<div class="form-group"> 
 			<label for="title">제목</label>
 			<input type="text" name="title" id="title" class="form-control" required>
@@ -27,7 +27,11 @@ include("header.php");
 
 		<div class="form-group"> 
 			<label for="category">카테고리</label> 
-			<input type="text" name="category" id="category" class="form-control" required>
+			<select name="category" id="category" class="form-control">
+				<option value="1">category1</option>
+				<option value="2">category2</option>
+				<option value="3">category3</option>
+			</select>
 		</div>
 
 		<div class="form-group"> 
@@ -36,8 +40,8 @@ include("header.php");
 		</div> 
 
 		<div class="form-group"> 
-			<label for="upfile">첨부파일</label> 
-			<input type="file" name="upfile" id="upfile" class="form-control"> 
+			<label for="img">이미지</label> 
+			<input type="file" name="img" id="img" class="form-control"> 
 		</div> 
 
 		<button type="submit" class="btn btn-primary">등록</button>
