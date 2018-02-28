@@ -1,7 +1,22 @@
-<?php 
+<?php
 session_start();
 include("connect.php");
 include("header.php");
+
+$sql = "SELECT news.title, news.category_idx, news.content, news.file FROM news WHERE news.user_idx = users.idx";
+$sql .= "JOIN users ON users.idx = news.user_idx ";
+$sql .= "JOIN category ON category.idx = news.category_idx ";
+$sql .= "GROUP BY news.idx ";
+$sql .= "ORDER BY news.idx DESC";
+$result = mysqli_query($conn, $sql);
+echo $sql;
+
+while($row = mysqli_fetch_array($result))
+{
+	echo $row['title'] . "<br><br>";
+	echo $row['category_idx'] . "<br><br>";
+	echo $row['content'] . "<br><br>";
+}
 ?>
 
 <article>
@@ -46,6 +61,6 @@ include("header.php");
 			<input type="file" name="img" id="img" class="form-control"> 
 		</div> 
 
-		<button type="submit" class="btn btn-primary">등록</button>
+		<button type="submit" class="btn btn-warning">수정</button>
 	</form> 
 </article>

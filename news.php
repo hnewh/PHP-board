@@ -10,56 +10,14 @@
 			<th>본문</th>
 			<th>댓글수</th>
 		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
 	</table>
 </div>
 
-<?php 
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
+<?php
+if(isset($_GET['page']))
+	$page = $_GET['page'];
+else
+	$page = 1;
 $offset = ($page - 1) * 5;
 
 $sql = "SELECT n.idx, n.title, COUNT(cm.idx) AS comment_count, u.name AS user FROM news AS n ";
