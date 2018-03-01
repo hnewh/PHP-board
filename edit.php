@@ -9,21 +9,15 @@ $sql .= "JOIN category ON category.idx = news.category_idx ";
 $sql .= "GROUP BY news.idx ";
 $sql .= "ORDER BY news.idx DESC";
 $result = mysqli_query($conn, $sql);
-echo $sql;
-
-while($row = mysqli_fetch_array($result))
-{
-	echo $row['title'] . "<br><br>";
-	echo $row['category_idx'] . "<br><br>";
-	echo $row['content'] . "<br><br>";
-}
 ?>
 
 <article>
 	<form action="writeok.php" method="POST" enctype="multipart/form-data">
 		<div class="form-group"> 
 			<label for="title">제목</label>
-			<input type="text" name="title" id="title" class="form-control" required>
+			<?php 
+			echo "<input type='text' name='title' id='title' class='form-control' required value=''>";
+			?>
 		</div> 
 
 		<div class="form-group"> 

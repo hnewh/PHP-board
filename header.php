@@ -12,4 +12,13 @@
 	<div class="wrap">
 		<div class="jumbotron text-center">
 			<h1>게시판</h1>
+			<!-- search -->
+			<form method="GET">
+				<input type="text" name="search" id="search" required>
+				<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> 검색</button>
+			</form>
 		</div>
+
+<script>
+		
+</script>

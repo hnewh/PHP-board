@@ -19,24 +19,16 @@ if(isset($_POST['content']))
 //file upload
 $file = "";
 $dir = "./uploads/";
-if($_FLIE['img'])
+if($_FILES['img'])
 {
-	$file_target = $dir . basename($_FILES['img']['name']);
-	$fileType = strtolower(pathinfo($file_target, PATHINFO_EXTENSION));
+	if(is_uploaded_file($_FILES['img']['tmp_name']))
+	{
+		$upfile = basename($_FILES['img']['name']);
+		$target = $dir . $upfile;
 
-	//img check
-	if($fileType != "jpg" && $fileType != "png" && $fileType != "jpeg" && $fileType != "gif")
-	{
-		echo "<script>alert('지원하지 않는 파일 형식입니다');";
-		echo "location.href = 'write.php'</script>";
+		if(move_uploaded_file($_FILES['img']['tmp_name'], $target))
+			$file = $upfile;
 	}
-	//move directory
-	if(!move_uploaded_file($_FILES['img']['tmp_name'], $file_target))
-	{
-		echo "<script>alert('Error');";
-		echo "location.href = 'write.php'</script>";
-	}
-	$file = $_FILES['img']['name'];
 }
 
 //add data
