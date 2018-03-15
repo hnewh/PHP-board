@@ -22,7 +22,7 @@ $offset = ($page - 1) * 5;
 $block = ceil($page / 5);
 $start = ($block - 1) * 5 + 1;
 $end = $start + 4;
-if($end > $total_page)
+if($end >= $total_page)
 	$end = $total_page;
 
 //news data
@@ -30,11 +30,14 @@ $sql = "SELECT n.title, n.category_idx, n.name, n.date, n.content, n.hit, n.idx 
 $sql .= "JOIN users AS u ON u.idx = n.user_idx ";
 $sql .= "JOIN category AS c ON c.idx = n.category_idx ";
 $sql .= "LEFT JOIN comment AS cm ON cm.news_idx = n.idx ";
+
+//search
 if(isset($_GET['search']) && $_GET['search'] != "" )
 {
 	$search = $_GET['search'];
 	$sql .= "WHERE (n.title LIKE '%$search%' OR n.content LIKE '%$search%')";
 }
+
 $sql .= "ORDER BY n.idx DESC ";
 $sql .= "LIMIT 5 OFFSET $offset";
 $result = $conn -> query($sql);
@@ -64,19 +67,29 @@ $result = $conn -> query($sql);
 			echo "<td>" . $row[3] . "</td>";
 			echo "<td>" . $row[4] . "</td>";
 			echo "<td>" . $row[5] . "</td>";
-			echo "<td><button class='btn btn-info'>더보기</button></td>";
+			echo "<td><form method='POST' action='view.php'>";
+			echo "<input type='text' name='idx' id='idx' style='display: none;' value='" . $row[6] . "'></input>";
+			echo "<button type='submit' class='btn btn-info'>더보기</button>";
+			echo "</form></td>";
 
+			//edit, delete button
 			if($login && ($_SESSION['loginname'] == $row[2]))
 			{
 				echo "<td><a href='edit.php' class='btn btn-warning'>수정</a> ";
-				echo "<button value='" . $row[6] . "' class='btn btn-danger'>삭제<buttona></td>";
+				echo "<form method='POST' action='delete.php'>";
+				echo "<input type='text' name='idx' id='idx' style='display: none;' value='" . $row[6] . "'></input>";
+				echo "<button type='submit' class='btn btn-danger'>삭제</button></td>";
+				echo "</form>";
 			}
+			else
+				echo "<td></td>";
 			echo "</tr>";
 		}
 		?>
 	</table>
 	<div class="page text-center">
 		<?php
+		//page button
 		if($start != $page)
 			echo "<a href='?page=" . ($page - 1) . "' class='btn btn-default'><</a>";
 
@@ -86,20 +99,15 @@ $result = $conn -> query($sql);
 			$start++;
 		}
 
-		if($page != $end || $total != 0)
-			echo "<a href='?page='" . ($page + 1) . " class='btn btn-default'>></a>";
+		if($page != $end)
+			echo "<a href='?page=" . ($page + 1) . "' class='btn btn-default'>></a>";
 	?>
 	</div>
-	<script>
-		$('.btn-danger').on("click", function(event){
-			var answer = confirm("정말 삭제하시겠습니까?");
-			if(answer)
-			{
-				var idx = $('button.btn-danger').val();
-				<?php 
-				$sql = "DELETE FROM news WHERE id=" . idx;
-				?>
-			}
-		});
-	</script>
 </div>
+<script>
+	$('.btn-danger').on("click", function(event){
+		var check = confirm("정말로 삭제하시겠습니까?");
+		if(!check)
+			event.preventDefault();
+	});
+</script>

@@ -28,11 +28,11 @@ include("header.php");
 		<div class="form-group"> 
 			<label for="category">카테고리</label> 
 			<select name="category" id="category" class="form-control">
-				<option value="1">category1</option>
-				<option value="2">category2</option>
-				<option value="3">category3</option>
-				<option value="4">category4</option>
-				<option value="5">category5</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
 			</select>
 		</div>
 
