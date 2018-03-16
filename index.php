@@ -8,5 +8,7 @@ if($login)
 	include("loginyes.php");
 else
 	include("loginno.php");
+
+include("category.php");
 ?>
 </div>

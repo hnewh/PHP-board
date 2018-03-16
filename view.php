@@ -21,10 +21,10 @@ $result = $conn -> query($sql);
 	{
 		echo "<span style='font-size : 50px;'>" . $row[0] ."</span>";
 		echo "<span>&nbsp; &nbsp;</span>";
-		echo "<span class='text-right' style='font-size : 15px;'>작성자 : " . $row[3] . "</span>";
-		echo " <span class='text-right' style='font-size : 15px;'>카테고리 : " . $row[2] . "</span>";
-		echo " <span class='text-right' style='font-size : 15px;'>작성일 : " . $row[4] . "</span>";
-		echo " <span class='text-right' style='font-size : 15px;'>댓글수 : " . $row[5] . "</span>";
+		echo "<span style='font-size : 15px;'>작성자 : " . $row[3] . "</span>";
+		echo " <span style='font-size : 15px;'>카테고리 : " . $row[2] . "</span>";
+		echo " <span style='font-size : 15px;'>작성일 : " . $row[4] . "</span>";
+		echo " <span style='font-size : 15px;'>댓글수 : " . $row[5] . "</span>";
 		echo "<hr>";
 
 		if($login && ($_SESSION['loginname'] == $row[3]))
@@ -34,7 +34,10 @@ $result = $conn -> query($sql);
 			echo "<input type='text' name='idx' id='idx' style='display: none;' value='" . $row[6] . "'></input>";
 			echo "<button type='submit' class='btn btn-danger'>삭제</button></td>";
 			echo "</form>";
-			echo "<a href='edit.php' class='btn btn-warning pull-right'>수정</a> ";
+			echo "<form method='POST' action='edit.php'>";
+			echo "<input type='text' name='idx' id='idx' style='display: none;' value='" . $row[6] . "'></input>";
+			echo "<button type='submit' class='btn btn-warning'>수정</button>";
+			echo "</form> ";
 		}
 		echo "<p style='font-size : 20px;'>" . $row[1] . "</p>";
 	}

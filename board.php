@@ -75,7 +75,10 @@ $result = $conn -> query($sql);
 			//edit, delete button
 			if($login && ($_SESSION['loginname'] == $row[2]))
 			{
-				echo "<td><a href='edit.php' class='btn btn-warning'>수정</a> ";
+				echo "<td><form method='POST' action='edit.php'>";
+				echo "<input type='text' name='idx' id='idx' style='display: none;' value='" . $row[6] . "'></input>";
+				echo "<button type='submit' class='btn btn-warning'>수정</button>";
+				echo "</form> ";
 				echo "<form method='POST' action='delete.php'>";
 				echo "<input type='text' name='idx' id='idx' style='display: none;' value='" . $row[6] . "'></input>";
 				echo "<button type='submit' class='btn btn-danger'>삭제</button></td>";
@@ -99,7 +102,7 @@ $result = $conn -> query($sql);
 			$start++;
 		}
 
-		if($page != $end)
+		if($page != $end && $total != 0)
 			echo "<a href='?page=" . ($page + 1) . "' class='btn btn-default'>></a>";
 	?>
 	</div>
